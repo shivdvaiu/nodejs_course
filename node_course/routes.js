@@ -1,7 +1,7 @@
-const http = require("http");
-const fs = require("fs");
-server = http.createServer(function (req, res) {
-    const url = req.url;
+const fs = require('fs');
+const requestHandler = (req, res, ) => {
+const url = req.url;
+const method = req.method;
 
     if (url === "/") {
         res.write(
@@ -16,24 +16,24 @@ server = http.createServer(function (req, res) {
         req.on('data', (chunk) => {
             body.push(chunk);
 
-
         });
 
 
-
-        req.on('end', () => {
+        return req.on('end', () => {
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split('=')[1];
             fs.writeFileSync("message.txt", message);
+            res.write("<h1>File is written</h1>");
+
+            res.statusCode = 302;
+
+
         });
 
-        
-        res.write("<h1>File is written</h1>");
 
-        res.statusCode = 302;
-
-        return res.end();
     }
-});
 
-server.listen(3000);
+
+}
+
+module.exports = requestHandler;
