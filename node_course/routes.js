@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const requestHandler = (req, res) => {
+const requestHandler =     (req, res) => {
     const url = req.url;
 
     switch (url) {
@@ -52,4 +52,8 @@ const requestHandler = (req, res) => {
 }
 
 
-module.exports = requestHandler;
+module.exports = {
+
+    handler:requestHandler
+    
+}
